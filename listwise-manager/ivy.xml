@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" 
+xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
+	<info organisation="rodaxsoft" module="listwise-manager" status="integration"/>
+	<dependencies>
+		
+		<!-- Most recent version of json is incompatible with Java 7 -->
+		<dependency org="org.json" name="json" rev="20140107"/>
+		
+		<dependency org="org.apache.commons" name="commons-lang3" rev="3.4"/>
+		<dependency org="commons-logging" name="commons-logging" rev="1.2" transitive="fals"/>
+
+	</dependencies>
+</ivy-module>
