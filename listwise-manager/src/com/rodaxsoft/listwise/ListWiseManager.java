@@ -64,7 +64,7 @@ public final class ListWiseManager {
 	 * Invokes the deep clean API and returns the email address object to 
 	 * query for cleanliness
 	 * 
-	 * <p><i>It's recommend that clients perform a bulk upload of an email list and 
+	 * <p><i>It's recommended that clients perform a bulk upload of an email list and 
 	 * wait until processing is complete, so that the <code>email_status</code> 
 	 * is final.</i></p>
 	 * 
@@ -189,6 +189,10 @@ public final class ListWiseManager {
 		return emailAddress;
 	}
 
+	/**
+	 * Registers the ListWise API key
+	 * @param apiKey The key to register
+	 */
 	public static void registerAPIKey(final String apiKey) {
 		sAPIKey = apiKey;
 	}
