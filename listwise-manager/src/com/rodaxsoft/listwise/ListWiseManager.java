@@ -148,7 +148,7 @@ public final class ListWiseManager {
 		StringBuilder buf = new StringBuilder();
 		
 		while ((inputLine = in.readLine()) != null) {
-			LOG.info(inputLine);
+			LOG.debug(inputLine);
 			buf.append(inputLine);
 		}
 
