@@ -1,5 +1,5 @@
 /*
-	IEmailStatusValues.java
+	EmailStatusValues.java
 	
 	Created by John Boyer on Jul 24, 2015
 	(c) Copyright 2015 Rodax Software, Inc. All Rights Reserved. 
@@ -25,7 +25,7 @@ package com.rodaxsoft.listwise;
  * @since 0.1
  *
  */
-interface IEmailStatusValues {
+interface EmailStatusValues {
 	/**
 	 * This address is invalid (fails syntax or RFC checks)
 	 */

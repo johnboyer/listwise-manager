@@ -15,24 +15,22 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-*/
+ */
 
 package com.rodaxsoft.listwise;
 
 import org.json.JSONObject;
 
-import com.rodaxsoft.mail.EmailStatus;
-import com.rodaxsoft.mail.IEmailAddress;
 
 /**
  * Email address implementation class
  * 
  * @author John Boyer
- * @version 2015-07-24
+ * @version 2015-07-29
  * @since 0.1
  * 
  */
-final class EmailAddress implements IEmailAddress {
+public class EmailAddress {
 
 	/**
 	 * Email address
@@ -61,13 +59,18 @@ final class EmailAddress implements IEmailAddress {
 		 */
 		private EmailAddress emailAddress;
 
+		public Builder() {
+			super();
+			this.emailAddress = new EmailAddress();
+		}
 		/**
-		 * Constructor
+		 * Constructor use a JSON object to populate an email address object
+		 * in the {@link #build()} method.
 		 * @param json Response JSON object
 		 */
 		Builder(JSONObject json) {
+			this();
 			this.json = json;
-			this.emailAddress = new EmailAddress();
 		}
 
 		/**
@@ -76,6 +79,16 @@ final class EmailAddress implements IEmailAddress {
 		 */
 		private Builder setEmail() {
 			emailAddress.email = json.optString("email");
+			return this;
+		}
+		
+		/**
+		 * Sets the email
+		 * @param email The email
+		 * @return This builder object
+		 */
+		public Builder setEmail(String email) {
+			emailAddress.email = email;
 			return this;
 		}
 
@@ -89,6 +102,16 @@ final class EmailAddress implements IEmailAddress {
 					: false;
 			return this;
 		}
+		
+		/**
+		 * Sets the free email flag
+		 * @param freeEmail The free email flag
+		 * @return This builder object
+		 */
+		public Builder setFreeEmail(boolean freeEmail) {
+			emailAddress.freeEmail = freeEmail;
+			return this;
+		}
 
 		/**
 		 * Sets the typos fixed flag
@@ -98,6 +121,16 @@ final class EmailAddress implements IEmailAddress {
 			String value = json.optString("typo_fixed");
 			emailAddress.typosFixed = value.equalsIgnoreCase("yes") ? true
 					: false;
+			return this;
+		}
+		
+		/**
+		 * Sets the typos fixed flag
+		 * @param typosFixed The typos fixed flag
+		 * @return This builder object
+		 */
+		public Builder setTyposFixed(boolean typosFixed) {
+			emailAddress.typosFixed = typosFixed;
 			return this;
 		}
 
@@ -111,43 +144,43 @@ final class EmailAddress implements IEmailAddress {
 			if (stringStatus != null) {
 				switch (stringStatus) {
 
-				case IEmailStatusValues.BAD_MX:
+				case EmailStatusValues.BAD_MX:
 					emailAddress.status = EmailStatus.BAD_MX;
 					break;
 
-				case IEmailStatusValues.BOUNCED:
+				case EmailStatusValues.BOUNCED:
 					emailAddress.status = EmailStatus.BOUNCED;
 					break;
 
-				case IEmailStatusValues.CATCH_ALL:
+				case EmailStatusValues.CATCH_ALL:
 					emailAddress.status = EmailStatus.CATCH_ALL;
 					break;
 
-				case IEmailStatusValues.CLEAN:
+				case EmailStatusValues.CLEAN:
 					emailAddress.status = EmailStatus.CLEAN;
 					break;
 
-				case IEmailStatusValues.INVALID:
+				case EmailStatusValues.INVALID:
 					emailAddress.status = EmailStatus.INVALID;
 					break;
 
-				case IEmailStatusValues.NO_REPLY:
+				case EmailStatusValues.NO_REPLY:
 					emailAddress.status = EmailStatus.NO_REPLY;
 					break;
 
-				case IEmailStatusValues.PROCESSING:
+				case EmailStatusValues.PROCESSING:
 					emailAddress.status = EmailStatus.PROCESSING;
 					break;
 
-				case IEmailStatusValues.SPAM_TRAP:
+				case EmailStatusValues.SPAM_TRAP:
 					emailAddress.status = EmailStatus.SPAM_TRAP;
 					break;
 
-				case IEmailStatusValues.SUSPICIOUS:
+				case EmailStatusValues.SUSPICIOUS:
 					emailAddress.status = EmailStatus.SUSPICIOUS;
 					break;
 
-				case IEmailStatusValues.UNKNOWN:
+				case EmailStatusValues.UNKNOWN:
 					emailAddress.status = EmailStatus.UNKNOWN;
 					break;
 
@@ -159,13 +192,26 @@ final class EmailAddress implements IEmailAddress {
 
 			return this;
 		}
+		
+		/**
+		 * Sets the email status value
+		 * @return This builder object
+		 */
+		public Builder setEmailStatus(EmailStatus emailStatus) {
+			emailAddress.status = emailStatus;
+			return this;
+		}
 
 		/**
 		 * Builds and returns the email address object
 		 * @return An email address object
 		 */
-		EmailAddress build() {
-			setEmail().setFreeEmail().setTyposFixed().setStatus();
+		public EmailAddress build() {
+			
+			if (json != null) {
+				setEmail().setFreeEmail().setTyposFixed().setStatus();
+			}
+			
 			return emailAddress;
 		}
 
@@ -182,7 +228,6 @@ final class EmailAddress implements IEmailAddress {
 	 * 
 	 * @see com.rodaxsoft.skedi.email.IEmailAddress#getEmail()
 	 */
-	@Override
 	public String getEmail() {
 		return email;
 	}
@@ -192,7 +237,6 @@ final class EmailAddress implements IEmailAddress {
 	 * 
 	 * @see com.rodaxsoft.skedi.email.IEmailAddress#getStatus()
 	 */
-	@Override
 	public EmailStatus getStatus() {
 		return status;
 	}
@@ -202,7 +246,6 @@ final class EmailAddress implements IEmailAddress {
 	 * 
 	 * @see com.rodaxsoft.skedi.email.IEmailAddress#isFree()
 	 */
-	@Override
 	public boolean isFree() {
 		return freeEmail;
 	}
@@ -212,7 +255,6 @@ final class EmailAddress implements IEmailAddress {
 	 * 
 	 * @see com.rodaxsoft.skedi.email.IEmailAddress#hasHadTyposFixed()
 	 */
-	@Override
 	public boolean hasHadTyposFixed() {
 		return typosFixed;
 	}

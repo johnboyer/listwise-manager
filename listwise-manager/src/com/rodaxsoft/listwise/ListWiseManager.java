@@ -30,8 +30,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 
-import com.rodaxsoft.mail.EmailStatus;
-import com.rodaxsoft.mail.IEmailAddress;
 
 /**
  * ListWise API manager class
@@ -74,10 +72,10 @@ public final class ListWiseManager {
 	 * @throws IOException if an I/O error occurs
 	 * @see <a href="http://www.listwisehq.com/support/">http://www.listwisehq.com/support</a>
 	 */
-	public static IEmailAddress deepClean(final String email)
+	public static EmailAddress deepClean(final String email)
 			throws ContextedException, IOException {
 
-		IEmailAddress emailAddress = null;
+		EmailAddress emailAddress = null;
 
 		final JSONObject obj = new JSONObject(deepCleanInternal(email));
 		final String emailStatus = obj.optString("email_status");
@@ -162,31 +160,13 @@ public final class ListWiseManager {
 	 * @param email Invalid email address
 	 * @return An Invalid email address object
 	 */
-	private static IEmailAddress makeInvalidEmailAddress(final String email) {
-		IEmailAddress emailAddress;
-		emailAddress = new IEmailAddress() {
-			
-			@Override
-			public String getEmail() {
-				return email;
-			}
-			
-			@Override
-			public EmailStatus getStatus() {
-				return EmailStatus.INVALID;
-			}
-			
-			@Override
-			public boolean hasHadTyposFixed() {
-				return false;
-			}
-			
-			@Override
-			public boolean isFree() {
-				return true;
-			}
-		};
-		return emailAddress;
+	private static EmailAddress makeInvalidEmailAddress(final String email) {
+       return new EmailAddress.Builder()
+                              .setEmail(email)
+                              .setEmailStatus(EmailStatus.INVALID)
+                              .setFreeEmail(true)
+                              .setTyposFixed(false)
+                              .build();
 	}
 
 	/**
