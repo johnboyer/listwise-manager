@@ -1,5 +1,5 @@
 # ListWise Manager for Java v0.1
-*Updated Tue, Jul 28, 2015*
+*Updated Wed, Jul 29, 2015*
 
 ## Introduction
 ListWise Manager is a Java implementation of [ListWise's API](http://www.listwisehq.com/support/index.php). It's easy for clients to make API calls and query the [POJO](https://en.wikipedia.org/wiki/Plain_Old_Java_Object) result object.
@@ -15,7 +15,7 @@ Before performing API operations register your API key.
 
 ### Deep Clean
 	
-	IEmailAddress emailAddress = ListWiseManager.deepClean("john@example.com");
+	EmailAddress emailAddress = ListWiseManager.deepClean("john@example.com");
 		
 
 ## Motivation
